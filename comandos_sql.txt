@@ -1,0 +1,39 @@
+CREATE TABLE fornecedor (
+    fornecedorid INTEGER PRIMARY KEY AUTOINCREMENT,
+    razao_social VARCHAR(100),
+    cnpj VARCHAR(30),
+    ativo BOOLEAN
+);
+
+CREATE TABLE produto (
+    produtoid INTEGER PRIMARY KEY AUTOINCREMENT,
+    codigo_barras VARCHAR(50),
+    categoria VARCHAR(30),
+    ativo BOOLEAN
+);
+
+CREATE TABLE estoque (
+    estoqueid INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(50),
+    data_criacao DATETIME,
+    ativo BOOLEAN
+);
+
+CREATE TABLE produto_fornecedor (
+    produto_fornecedorid INTEGER PRIMARY KEY AUTOINCREMENT,
+    fornecedorid INTEGER,
+    produtoid INTEGER,
+    FOREIGN KEY (fornecedorid) REFERENCES fornecedor (fornecedorid),
+    FOREIGN KEY (produtoid) REFERENCES produto (produtoid)
+);
+
+CREATE TABLE estoque_produto (
+    estoque_produtoid INTEGER PRIMARY KEY AUTOINCREMENT,
+    estoqueid INTEGER,
+    produtoid INTEGER,
+    quantidade INTEGER,
+    valor_venda_unitario FLOAT,
+    valor_compra_total FLOAT,
+    FOREIGN KEY (estoqueid) REFERENCES estoque (estoqueid),
+    FOREIGN KEY (produtoid) REFERENCES produto (produtoid)
+);
